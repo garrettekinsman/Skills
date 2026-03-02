@@ -1,0 +1,68 @@
+{
+  "_comment": "API sources for loop_status.py — API keys come from env vars only, never hardcoded.",
+  "budgets": {
+    "anthropic": {
+      "label": "Anthropic",
+      "monthly_budget_usd": 50.0,
+      "key_env": "ANTHROPIC_API_KEY"
+    },
+    "xai": {
+      "label": "xAI / Grok",
+      "monthly_budget_usd": 25.0,
+      "key_env": "XAI_API_KEY"
+    }
+  },
+  "compute": {
+    "framework1": {
+      "enabled": true,
+      "label": "Framework1",
+      "ssh_host_env": "FRAMEWORK1_SSH_HOST",
+      "ssh_key_env": "FRAMEWORK1_SSH_KEY",
+      "idle_watts_fallback": 40,
+      "_comment": "SSH host/key from env vars FRAMEWORK1_SSH_HOST / FRAMEWORK1_SSH_KEY. idle_watts_fallback used only when RAPL/hwmon unreadable."
+    }
+  },
+  "api_status": {
+    "anthropic": {
+      "label": "Anthropic",
+      "url": "https://api.anthropic.com",
+      "enabled": true
+    },
+    "xai": {
+      "label": "Xai Grok",
+      "url": "https://api.x.ai",
+      "enabled": true
+    },
+    "tradier": {
+      "label": "Tradier",
+      "url": "https://api.tradier.com",
+      "enabled": true
+    },
+    "yfinance": {
+      "label": "Yfinance",
+      "url": "https://query1.finance.yahoo.com/v8/finance/chart/AAPL",
+      "enabled": true
+    },
+    "brave": {
+      "label": "Brave Search",
+      "url": "https://api.search.brave.com",
+      "enabled": true
+    },
+    "litellm": {
+      "label": "LiteLLM (F1)",
+      "url": "${LITELLM_URL}",
+      "enabled": true,
+      "_comment": "Framework1 LiteLLM via Cloudflare tunnel"
+    },
+    "baidu": {
+      "label": "Baidu Search",
+      "url": "https://www.baidu.com",
+      "enabled": false,
+      "_comment": "Set enabled:true to include Baidu in status checks"
+    }
+  },
+  "energy": {
+    "kwh_rate_usd": 0.22,
+    "_comment": "Electricity cost per kWh in USD — Long Beach CA rate"
+  }
+}

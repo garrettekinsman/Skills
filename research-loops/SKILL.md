@@ -1,7 +1,77 @@
-# Research Loop Skill v8-2026-03-01
+# Research Loop Skill v10-2026-03-01
 **Multi-agent research framework for any problem domain with real-time capabilities**
 
 ---
+
+## Loop Status (MANDATORY BEHAVIOR)
+
+When the user asks for "loop status", "show loops", "dashboard", or similar:
+1. Run `cd /Users/garrett/.openclaw/workspace/skills/research-loops && python3 loop_status.py --discord`
+2. Send the output as a Discord message (it wraps itself in a code block with `--discord`)
+3. Display verbatim — do not summarize or truncate
+4. This is the canonical dashboard view
+
+### What loop_status.py shows
+- **Credits & Spending** — scans real session transcripts for cloud spend this billing cycle
+- **Local Compute** — SSH into Framework1, lists loaded Ollama models + live power draw (RAPL/hwmon)
+- **API Status** — live latency ping for: Anthropic, xAI, Tradier, yfinance, Brave Search, LiteLLM (F1)
+- **Energy** — Framework1 live watts, projected daily kWh/cost, cumulative loop energy
+- **Loops** — all loops from SQLite with sprints, findings, cost, kWh per loop
+
+### Configuration
+- Sources: `status_sources.json` — add/remove APIs, set budgets, toggle compute nodes
+- Database: `state/loops.db` (SQLite)
+- Framework1 SSH: host from env `FRAMEWORK1_SSH_HOST`, key from env `FRAMEWORK1_SSH_KEY`
+
+## Loop Registration (MANDATORY BEHAVIOR)
+
+**Every loop MUST be registered in the SQLite database at spawn time** — not just on completion. This ensures any session (DM, group chat, heartbeat) can see in-flight loops via `loop_status.py`.
+
+### When spawning a loop, immediately after `sessions_spawn`:
+
+```python
+cd /Users/garrett/.openclaw/workspace/skills/research-loops && python3 -c "
+from loop_status import get_db, register_loop
+conn = get_db()
+register_loop(conn, 'LXXXX', 'Loop topic here', sprints_max=20)
+conn.close()
+"
+```
+
+### When a loop completes (inside the sub-agent task):
+
+```python
+import sqlite3
+conn = sqlite3.connect('/Users/garrett/.openclaw/workspace/skills/research-loops/state/loops.db')
+conn.execute("""
+    UPDATE loops SET status='completed', sprints_done=?, findings=?, cost_usd=?, finished_at=datetime('now')
+    WHERE id=?
+""", (sprints_done, findings_count, total_cost_usd, loop_id))
+conn.commit()
+conn.close()
+```
+
+### Loop ID convention: `L0001`, `L0002`, etc. — increment from last entry in DB.
+
+To get next ID:
+```bash
+cd /Users/garrett/.openclaw/workspace/skills/research-loops && python3 -c "
+import sqlite3
+conn = sqlite3.connect('state/loops.db')
+row = conn.execute('SELECT id FROM loops ORDER BY id DESC LIMIT 1').fetchone()
+last = int(row[0][1:]) if row else 0
+print(f'Next ID: L{last+1:04d}')
+conn.close()
+"
+```
+
+## Heartbeat Integration
+
+`HEARTBEAT.md` is configured to run `loop_status.py` on every heartbeat. The heartbeat session will:
+- Show full dashboard if any loop is `active`, Framework1 is offline, any API is down, or budget >80%
+- Otherwise report "Loop farm quiet, all green"
+
+This means **any session** (DM, group chat) will see active loops at the next heartbeat ping (~30 min cadence).
 
 ## Documentation Requirement (MANDATORY)
 
@@ -16,6 +86,9 @@ After any work on the loop farm (code changes, new features, bug fixes):
 6. **Update CHANGELOG below** — one-line summary per change
 
 ### CHANGELOG
+- `2026-03-01 v11` — **RELAY ENGINE**: Added `relay/` subdirectory — multi-agent relay runtime replacing single-session loops. checkpoint_manager.py, orchestrator.py, baton.py (v2 schema), worker_prompt_template.py, swarm_status.py. This is the evolution of the loop farm — time-bound loops now run as bounded-context worker relays with SQLite state handoff. Single-session loops are legacy.
+- `2026-03-01 v10` — **TIME-BOUND LOOPS**: Rewrote NEVER STOP EARLY section. Time budget is the primary stop condition (wall clock). max_sprints is a safety cap only. Added explicit start_time/elapsed check pattern. Loops must keep running and expand scope until time expires.
+- `2026-03-01 v9` — **DASHBOARD**: Rewrote loop_status.py — Framework1 SSH health + Ollama model listing, RAPL/hwmon live power readings, Energy section (live watts + projected daily kWh/cost + cumulative loop energy), LiteLLM (F1) added to API status. Invokable wired into SKILL.md. Vera audit pending.
 - `2026-03-01 v8` — **SECURITY**: Added full Security Architecture section. Session nonce continuity system (Henry/Menehune Research). Three gap closures: cross-turn accumulation, state file re-read bypass, local model handoff. Mandatory LLM detection for financial loops. web_search snippet sanitization. Updated .gitignore to catch real API keys in configs. README.md for collaborators.
 - `2026-02-25 v7` — **RULE**: Never stop early. If all theses converge before the time budget is exhausted, spawn additional loops on adjacent/related topics rather than stopping. Time budget = time budget. Use remaining time productively.
 - `2026-02-23 v6` — **MAJOR**: Generalized framework for any problem domain. Added real-time capability, domain-specific templates, pluggable data sources, and adaptive loop architectures. Enhanced problem space taxonomy, multi-domain validation, and streaming/batch modes.
@@ -211,13 +284,39 @@ class BatchResearchLoop:
 
 ## ⚠️ NEVER STOP EARLY (MANDATORY RULE)
 
-**The time budget is a commitment, not a ceiling.** If all theses converge before the time budget is exhausted:
+**The time budget is a commitment, not a ceiling.**
 
+### When a time bound is given (`time_budget_minutes`):
+- **Record `start_time = time.time()` at the very beginning of the loop**
+- **Check elapsed time before every sprint**: `if time.time() - start_time >= time_budget_seconds: break`
+- **`max_sprints` is a safety cap only** — do NOT treat it as a target. You should still be running at sprint 29 if the clock hasn't expired.
+- **Never stop because findings converged** — expand scope, go deeper, explore adjacent questions
+
+### The loop must keep running until:
+1. `time.time() - start_time >= time_budget_seconds` ← **primary stop condition**
+2. OR `max_sprints` reached ← safety cap only
+3. OR token budget exhausted
+
+### Expansion when converging early:
 1. **Do NOT stop and deliver early.**
 2. **Expand scope** — add adjacent theses, explore related opportunities, go deeper on promising findings.
-3. **Spawn follow-on loops** — use remaining time to launch new sub-loops on related questions.
-4. **For financial loops**: if the original universe is exhausted, scan broader sectors, check macro context, look for correlated plays, check ETF options, scan for event-driven setups in adjacent industries.
-5. **Only stop when:** time budget is gone OR max_sprints reached OR token budget hit.
+3. **For financial loops**: expand ticker universe → adjacent sectors → macro themes → vol plays → event calendar → correlated international markets.
+4. **For intelligence loops**: expand to related actors → secondary sources → historical parallels → scenario planning → second/third-order effects.
+
+### Spawn task template (time-bound loops):
+```python
+import time
+START_TIME = time.time()
+TIME_BUDGET_SECONDS = 180 * 60  # e.g. 3 hours
+
+sprint = 0
+while time.time() - START_TIME < TIME_BUDGET_SECONDS:
+    sprint += 1
+    run_sprint(sprint)
+    # expand scope if converging — never just stop
+
+deliver_report()
+```
 
 **Why:** Early convergence usually means the initial thesis set was too narrow, not that the research is done. There is always more to find. Use the time.
 
