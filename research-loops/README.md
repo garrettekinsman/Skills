@@ -5,6 +5,37 @@ Financial markets, technical architecture, OSINT, scientific investigation — i
 
 ---
 
+## Design Goals
+
+### Built for Local AI Infrastructure
+
+This framework is designed to **maximize the use of local AI compute** — running as much work as possible on self-hosted models (Ollama, LiteLLM, custom endpoints) before falling back to cloud APIs.
+
+- **Researcher and Adversary roles** run on local models (e.g. `qwen3-coder`, `gpt-oss`) — the heavy, repetitive work that would burn cloud budget fast
+- **Synthesizer role** uses cloud Claude for final judgment and coherent output — the step where model quality matters most
+- **Cost reduction target**: 80-90% fewer cloud tokens vs. a naive all-cloud loop
+- **Configure your local endpoint** in `configs/example.json` under `"local_model"`
+
+This means a 400K token research loop that would cost ~$12 on Claude alone runs for under $1 with local infrastructure handling the bulk of the work.
+
+### Hardened Against Prompt Injection
+
+Research loops are a high-value attack surface — they fetch untrusted content from the internet and route it through multiple agent turns. Significant effort has gone into reducing injection risk at every seam.
+
+**What we did:**
+
+1. **Tool-level sanitization** — external content is sanitized *before* the agent ever sees it. The web_fetch intercept strips injection patterns, homoglyphs, markdown image exfiltration vectors (CVE-2025-32711), and known LLM trigger phrases before content enters the agent context.
+
+2. **Session nonce continuity** — each loop session gets a unique nonce embedded in the system prompt. All external content arrives wrapped in nonce-tagged XML (`<LOOP_EXTERNAL_{nonce}>...`). Anything claiming to be instructions *outside* that wrapper is structurally wrong — the model treats it as injected content regardless of what it says. The nonce doesn't need to be secret; the protection comes from the structure.
+
+3. **Cross-turn accumulation detection** — single-fetch sanitization isn't enough. An attacker can fragment a payload across multiple pages (page 1 plants a partial phrase, page 5 completes it). The accumulated sprint summary is re-scanned before being written to state.
+
+4. **State file chain-of-custody** — the session nonce is written into every state file. On re-read, the nonce is verified. A compromised state file can't silently re-enter the pipeline next sprint.
+
+5. **Mandatory local model sanitization** — when a local model processes content and hands off to Claude, the output goes through `model_output_sanitizer.py`. This is mandatory, not optional — local models are treated as untrusted.
+
+These aren't guarantees — prompt injection in agentic pipelines is a structurally hard problem. But these layers mean an attacker needs to simultaneously bypass sanitization, forge the session nonce, and survive cross-turn detection. That's meaningfully harder than a naive loop.
+
 ## What It Does
 
 Research loops run structured, adversarial, multi-sprint investigations:
