@@ -1,6 +1,7 @@
 # Research Loops — Collaborator Guide
 
-**Universal multi-agent research framework for any problem domain.**
+**Universal multi-agent research framework for any problem domain — optimized for local compute infrastructure and designed to be resistant to prompt injection attacks.**
+
 Financial markets, technical architecture, OSINT, scientific investigation — if it can be researched, loops can do it.
 
 ---
