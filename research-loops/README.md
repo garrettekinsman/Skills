@@ -35,7 +35,14 @@ Research loops are a high-value attack surface — they fetch untrusted content 
 
 5. **Mandatory local model sanitization** — when a local model processes content and hands off to Claude, the output goes through `model_output_sanitizer.py`. This is mandatory, not optional — local models are treated as untrusted.
 
-These aren't guarantees — prompt injection in agentic pipelines is a structurally hard problem. But these layers mean an attacker needs to simultaneously bypass sanitization, forge the session nonce, and survive cross-turn detection. That's meaningfully harder than a naive loop.
+These layers raise the bar significantly — a casual injection attempt will fail. A targeted attack from a sophisticated adversary could still succeed via:
+
+- **Semantic injection** — well-crafted content that passes all sanitization rules but steers reasoning toward attacker goals. No current defense exists for this.
+- **Cross-sprint accumulation** — payload fragmented across multiple sprint cycles (not just within a sprint). Layer 3 catches within-sprint accumulation only.
+- **Local model alignment** — if a local model has been fine-tuned or prompted to embed subtle trigger phrases, the sanitizer likely won't catch it. Local models are treated as untrusted but pattern-matching isn't a complete defense against a compromised model.
+- **Synthesizer context** — Claude (the final Synthesizer) reads summaries that may have survived earlier layers. Claude's context window is a final injection surface.
+
+Prompt injection in agentic pipelines is an unsolved problem in the field. These protections reflect current best practice, not a complete solution. Size your threat model accordingly.
 
 ## What It Does
 

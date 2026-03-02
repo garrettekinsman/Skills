@@ -6,8 +6,8 @@
       "size": 7510
     },
     "README.md": {
-      "sha256": "8ea75430e46e53e41ad0537e1dd461c016001e0a0edb59cc3daab685595748fa",
-      "size": 9615
+      "sha256": "baa612f86fe44d483ece99c1cf5668e85a4082044d2fba8c4b251fc5a4392fb1",
+      "size": 10438
     },
     "SKILL.md": {
       "sha256": "3bb5a4b985d670c63aad3f4b68fa797148bd210d8394734c04eebd602d8db9ee",
@@ -94,7 +94,7 @@
       "size": 8360
     }
   },
-  "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgjd2mFZNVbTBVWkblsgLMraU2pJ\ncf278SXzAgXrPyaVYAAAAOc2tpbGwtbWFuaWZlc3QAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAUPRdm41K7Bc1tA+OyhL+FtHJiHi+9Al6+OS2SXT9phpdmss2VF\nl3x24LGrvJWI3aFtOYklP/7z1gtTYzamiJAQ==\n-----END SSH SIGNATURE-----\n",
+  "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgjd2mFZNVbTBVWkblsgLMraU2pJ\ncf278SXzAgXrPyaVYAAAAOc2tpbGwtbWFuaWZlc3QAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAzUfPdC26cYjTZuMMHLQKJc10LTvMKn/dWhV9N/e5e5cTn57z5E\nlb9AOkSO+CNNFEYI8kJzR8CstqPca0dX1YBQ==\n-----END SSH SIGNATURE-----\n",
   "signer": {
     "algorithm": "ssh-ed25519",
     "identity": "gaho@kinsman.xyz",
@@ -105,6 +105,6 @@
     "name": "Research Loop Skill v8-2026-03-01",
     "version": "0.0.0"
   },
-  "timestamp": "2026-03-02T01:19:52.847909+00:00",
+  "timestamp": "2026-03-02T01:44:38.977107+00:00",
   "version": "1.0.0"
 }
