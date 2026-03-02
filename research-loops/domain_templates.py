@@ -19,7 +19,7 @@ class DomainTemplates:
                     "time_budget_minutes": 45,
                     "token_budget": 75000,
                     "cost_budget_usd": 3.00,
-                    "data_sources": ["tradier", "yfinance", "web_search"],
+                    "data_sources": ["market_data_api", "yfinance", "web_search"],
                     "models": ["xai/grok-4-fast-reasoning", "anthropic/claude-sonnet-4"]
                 },
                 "real_time": {

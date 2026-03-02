@@ -17,7 +17,7 @@ Domains: financial, technical, product, scientific, intelligence
 Examples:
     python3 loops.py status --domain financial              # Show only financial market research loops
     python3 loops.py status --domain technical --no-cache   # Show technical loops with fresh API status
-    python3 generate_config.py financial "Should I buy NVDA before earnings?"
+    python3 generate_config.py financial "What are the key trends in renewable energy this quarter?"
 """
 
 import json
@@ -325,7 +325,6 @@ def check_api_status(no_cache=False):
             "error": f"API status check failed: {str(e)}",
             "anthropic": {"status": "error", "latency": "N/A"},
             "xai_grok": {"status": "error", "latency": "N/A"},
-            "tradier": {"status": "error", "latency": "N/A"},
             "yfinance": {"status": "error", "latency": "N/A"},
             "brave_search": {"status": "error", "latency": "N/A"}
         }

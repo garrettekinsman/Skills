@@ -108,7 +108,7 @@ class GeopoliticalMonitor:
                 "probability": 0.4,
                 "oil_impact": "+5-15%",
                 "duration": "1-2 weeks",
-                "trades": ["USO calls", "XLE calls", "GLD calls"]
+                "trades": ["sector_etf_1 calls", "sector_etf_2 calls", "commodity_etf calls"]
             },
             "sustained_conflict": {
                 "probability": 0.3, 
@@ -199,7 +199,7 @@ class GeopoliticalMonitor:
                 "oil": "+25% (Feb-Mar 2022)",
                 "wheat": "+50% (supply shock)",
                 "defense": "LMT +30%, RTX +25%",
-                "tech": "QQQ -20% (risk-off)",
+                "tech": "tech_etf -20% (risk-off)",
                 "lessons": "Sustained conflict = persistent impact"
             },
             "soleimani_assassination_2020": {

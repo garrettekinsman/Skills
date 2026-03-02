@@ -128,7 +128,7 @@ Each loop tracks:
   "timeout_minutes": 15,             // Wall clock timeout
   "token_budget": 400000,            // Max tokens to consume
   "theses": ["T1", "T2"],           // Starting theses to test
-  "data_sources": ["tradier"],       // Data APIs to use
+  "data_sources": ["your_data_api"],       // Data APIs to use
   "output_dir": "ops/research/...",  // Where output files go
   
   "status": "completed",             // Lifecycle state

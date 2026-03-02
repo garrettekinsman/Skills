@@ -113,12 +113,12 @@ class StreamProcessor:
         """Stream financial price data"""
         while self.running:
             try:
-                # Example: Poll Tradier API for price updates
-                symbols = config.filters.get('symbols', ['SPY'])
+                # Example: Poll data API for price updates
+                symbols = config.filters.get('symbols', ['EXAMPLE1'])
                 async with aiohttp.ClientSession() as session:
                     for symbol in symbols:
                         async with session.get(
-                            f"https://api.tradier.com/v1/markets/quotes?symbols={symbol}",
+                            f"https://your-data-api.example.com/quotes?symbols={symbol}",
                             headers={"Authorization": f"Bearer {config.filters.get('api_key')}"}
                         ) as response:
                             if response.status == 200:
@@ -291,10 +291,10 @@ FINANCIAL_STREAMS = {
     "market_prices": StreamConfig(
         name="market_prices",
         stream_type=StreamType.PRICE_FEED,
-        source_url="https://api.tradier.com/v1/markets/quotes",
+        source_url="https://your-data-api.example.com/quotes",
         update_frequency=30,  # 30 seconds
         significance_threshold=0.02,  # 2% price move
-        filters={"symbols": ["SPY", "QQQ", "VIX"]}
+        filters={"symbols": ["EXAMPLE1", "EXAMPLE2"]}
     ),
     "market_news": StreamConfig(
         name="market_news", 

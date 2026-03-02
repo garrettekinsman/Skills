@@ -64,7 +64,7 @@ async def fetch_channel(client, channel_handle: str, hours_back: int, msg_limit:
     - No per-message entity resolution (each get_entity() = extra API hit)
     - 2s sleep between channels
     - FloodWaitError: respect Telegram's backoff, propagate up cleanly
-    - @gahonga is a new account — conservative posture prevents re-ban
+    - [account] is a new account — conservative rate limits apply
     """
     raw_messages = []
     try:
@@ -204,7 +204,7 @@ if __name__ == "__main__":
                         default="priority", help="Channel set to fetch")
     parser.add_argument("--limit", type=int, default=50,
                         help="Max messages per channel (default 50 — do not raise without reason; "
-                             "@gahonga is a new account and already got temporarily banned once; "
+                             "[account] is a new account with conservative rate limits; "
                              "50 is the conservative safe cap for regular runs)")
     parser.add_argument("--store", action="store_true", default=False,
                         help="Write fetched messages to osint_archive.db (deduped)")
