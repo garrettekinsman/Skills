@@ -94,17 +94,17 @@
       "size": 8360
     }
   },
-  "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgNuswyJOGFPQWjGX+y4wcc8x87p\nzRpshnL9nYmRvHq0EAAAAOc2tpbGwtbWFuaWZlc3QAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAtUs83EfhkpR5/udSkCdSkEVDeSmI2/2w1rPHabJtIpyDc0ECTq\nqOeuEJrwlkBgMws6+3oFF48q4UhwUXWYFxBw==\n-----END SSH SIGNATURE-----\n",
+  "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgjd2mFZNVbTBVWkblsgLMraU2pJ\ncf278SXzAgXrPyaVYAAAAOc2tpbGwtbWFuaWZlc3QAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAUPRdm41K7Bc1tA+OyhL+FtHJiHi+9Al6+OS2SXT9phpdmss2VF\nl3x24LGrvJWI3aFtOYklP/7z1gtTYzamiJAQ==\n-----END SSH SIGNATURE-----\n",
   "signer": {
     "algorithm": "ssh-ed25519",
-    "identity": "garrett@garrettekinsman.com",
-    "key_fingerprint": "SHA256:DBo7oGhrsLbtbSbY4jrpBUfk0d5eU9g4PY84TvURtrQ"
+    "identity": "gaho@kinsman.xyz",
+    "key_fingerprint": "SHA256:hMOEiBftK8ysUok6maTMhqMm+Vl/xipe36ZVA3fFehs"
   },
   "skill": {
-    "author": "garrett@garrettekinsman.com",
+    "author": "gaho@kinsman.xyz",
     "name": "Research Loop Skill v8-2026-03-01",
     "version": "0.0.0"
   },
-  "timestamp": "2026-03-02T01:18:14.667060+00:00",
+  "timestamp": "2026-03-02T01:19:52.847909+00:00",
   "version": "1.0.0"
 }
