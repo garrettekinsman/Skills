@@ -1,0 +1,47 @@
+{
+  "domain": "technical",
+  "mode": "batch",
+  "resources": {
+    "time_budget_minutes": 90,
+    "token_budget": 100000,
+    "cost_budget_usd": 4.0,
+    "data_sources": [
+      "github",
+      "docs",
+      "web_fetch"
+    ],
+    "models": [
+      "anthropic/claude-sonnet-4",
+      "local/qwen3:32b"
+    ]
+  },
+  "real_time": {
+    "enabled": false,
+    "update_frequency_seconds": 3600,
+    "significance_threshold": 0.2
+  },
+  "validation": {
+    "cross_source_required": true,
+    "adversarial_testing": true,
+    "load_testing": true,
+    "security_audit": true,
+    "cost_modeling": true,
+    "scalability_analysis": true
+  },
+  "output": {
+    "format": "detailed",
+    "delivery": [
+      "file"
+    ],
+    "include_architecture_diagrams": true,
+    "include_implementation_roadmap": true
+  },
+  "problem_statement": "What's the optimal architecture for a distributed AI compute cluster with 3 Mac machines?",
+  "created_at": "2026-02-23T06:52:59.608932",
+  "success_criteria": [
+    "Handles 1000 requests/second with <100ms latency",
+    "99.9% uptime achievable",
+    "Cost <$1000/month at target scale",
+    "Scales to 10x current load"
+  ]
+}

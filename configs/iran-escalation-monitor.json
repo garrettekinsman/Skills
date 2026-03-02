@@ -1,0 +1,130 @@
+{
+  "domain": "intelligence",
+  "mode": "streaming",
+  "problem_statement": "Monitor Iran-Israel escalation risk and identify market-moving developments in real-time",
+  "success_criteria": [
+    "Credible threat assessment with confidence scores >80%",
+    "Specific trade setups with defined risk/reward ratios >2:1",
+    "Timeline for key escalation triggers within 48-72 hours",
+    "Cross-verified intelligence from ≥3 independent OSINT sources",
+    "Market sector impact assessment with historical precedent"
+  ],
+  "resources": {
+    "time_budget_minutes": 180,
+    "token_budget": 300000,
+    "cost_budget_usd": 12.00,
+    "data_sources": ["twitter_osint", "tradier", "web_search", "news_feeds"],
+    "models": ["xai/grok-3", "anthropic/claude-sonnet-4", "local/qwen3:32b"]
+  },
+  "real_time": {
+    "enabled": true,
+    "update_frequency_seconds": 300,
+    "significance_threshold": 0.05,
+    "alert_channels": ["discord"],
+    "emergency_threshold": 0.8
+  },
+  "intelligence_specific": {
+    "region": "middle_east",
+    "primary_actors": ["iran", "israel", "united_states", "hezbollah"],
+    "escalation_triggers": [
+      "iranian_nuclear_facilities_strike",
+      "strait_of_hormuz_closure", 
+      "mass_casualty_proxy_attack",
+      "us_military_assets_attacked",
+      "israeli_population_centers_hit"
+    ],
+    "de_escalation_signals": [
+      "diplomatic_back_channel_activity",
+      "proxy_force_restraint_orders",
+      "economic_engagement_offers",
+      "un_security_council_intervention"
+    ],
+    "osint_twitter_handles": [
+      "@sentdefender",
+      "@IntelCrab", 
+      "@WarMonitors",
+      "@ElintNews",
+      "@YWNReporter",
+      "@Conflicts",
+      "@Liveuamap",
+      "@BabakTaghvaee",
+      "@Archer83Able",
+      "@NotWoofers"
+    ],
+    "osint_keywords": [
+      "Iran Israel military strike attack retaliation",
+      "IRGC Hezbollah proxy militia activity",
+      "Strait Hormuz oil tanker naval blockade",
+      "Netanyahu Iran nuclear red line ultimatum",
+      "Iron Dome missile rocket alert Israel emergency",
+      "US Navy Persian Gulf carrier deployment Fifth Fleet",
+      "Fordow Natanz uranium enrichment centrifuge",
+      "Quds Force asymmetric operation sleeper cell"
+    ],
+    "market_sectors": {
+      "primary_bullish": ["oil", "gold", "defense", "safe_havens"],
+      "primary_bearish": ["airlines", "tourism", "consumer_discretionary"],
+      "secondary_effects": ["shipping", "emerging_markets", "tech"],
+      "specific_tickers": {
+        "energy": ["XLE", "USO", "XOP", "OIH"],
+        "defense": ["RTX", "LMT", "NOC", "GD", "ITA"],
+        "safe_haven": ["GLD", "TLT", "VIX", "DXY"],
+        "risk_off": ["QQQ", "EEM", "FXI", "EWZ"]
+      }
+    }
+  },
+  "historical_context": {
+    "comparable_events": [
+      {
+        "event": "soleimani_assassination_2020",
+        "oil_reaction": "+4% same day, +8% peak, 5-day duration",
+        "market_reaction": "VIX +23%, risk-off for 1 week"
+      },
+      {
+        "event": "tanker_attacks_2019", 
+        "oil_reaction": "+4% same day, +15% over 2 weeks",
+        "market_reaction": "Temporary risk premium, normalized after 2-3 weeks"
+      },
+      {
+        "event": "iran_nuclear_deal_exit_2018",
+        "oil_reaction": "+20% over 6 months",
+        "market_reaction": "Sustained energy outperformance"
+      }
+    ],
+    "reaction_patterns": {
+      "immediate": "Oil +2-8%, Gold +1-3%, Defense +3-10%, VIX +15-25%",
+      "sustained_if": "Supply disruption OR multi-week conflict",
+      "fade_if": "No follow-up escalation within 7-10 days"
+    }
+  },
+  "validation": {
+    "cross_source_required": true,
+    "minimum_source_agreement": 0.7,
+    "adversarial_testing": true,
+    "source_credibility_scoring": true,
+    "timeline_consistency_check": true,
+    "bias_detection": true,
+    "false_flag_detection": true,
+    "disinformation_filtering": true
+  },
+  "output": {
+    "format": "brief",
+    "delivery": ["file", "discord"],
+    "include_threat_matrix": true,
+    "include_trade_setups": true,
+    "include_confidence_intervals": true,
+    "include_source_attribution": true,
+    "update_on_significance_change": true,
+    "emergency_alert_threshold": 8.5
+  },
+  "risk_management": {
+    "position_sizing": "2-5% per geopolitical trade",
+    "stop_loss": "Defined risk spreads only",
+    "time_horizon": "1-4 weeks typical",
+    "correlation_awareness": "Oil/gold correlation during risk-off",
+    "liquidity_considerations": "Avoid illiquid options during crisis"
+  },
+  "created_at": "2026-02-23T07:30:00",
+  "expires_at": "2026-03-09T23:59:59",
+  "auto_archive_after": "30_days"
+}

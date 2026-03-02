@@ -1,0 +1,14 @@
+{
+  "topic": "Example Research Topic",
+  "model": "xai/grok-4-fast-reasoning",
+  "min_sprints": 12,
+  "max_sprints": 20,
+  "timeout_minutes": 15,
+  "token_budget": 400000,
+  "theses": [
+    "Thesis 1 to test",
+    "Thesis 2 to test"
+  ],
+  "data_sources": ["tradier", "yfinance", "web_fetch"],
+  "output_dir": "ops/research/example-YYYY-MM-DD"
+}
