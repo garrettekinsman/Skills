@@ -9,7 +9,7 @@
 1. **Local compute first** — always `model="litellm/qwen3-coder"` in sessions_spawn
 2. **Time budget is a commitment** — loops run until clock expires, never stop early
 3. **Explicit sprint counter** — numbered sprints in task prompt, `MIN_SPRINTS = budget_min * 2`
-4. **Henry's nonce system** — session nonce + wrap_external() in every loop task → REFERENCE.md § Security
+4. **collaborator nonce system** — session nonce + wrap_external() in every loop task → REFERENCE.md § Security
 5. **Sanitize before Claude reads** — all local model output through model_output_sanitizer → REFERENCE.md § Sanitizer
 6. **Never put research topic in group notification** — model + duration + ID only
 
@@ -88,7 +88,7 @@ conn = get_db(); register_loop(conn, LOOP_ID, 'topic', sprints_max=999); conn.cl
 | Loop uses cloud not local | Model string must be `"litellm/qwen3-coder"` not `"qwen3-coder"` |
 | Loop finishes in 2 min | Use numbered sprint counter in task prompt → REFERENCE.md § Time Enforcement |
 | LiteLLM not responding | `ssh framework1 sudo systemctl restart litellm` |
-| loop_status SSH fails | Check `FRAMEWORK1_SSH_USER` env var is set to `gk` |
+| loop_status SSH fails | Check `FRAMEWORK1_SSH_USER` env var is set to your SSH username |
 | Nonce mismatch on state read | State file compromised — halt, don't use findings |
 | model_output_sanitizer blocked | Discard output, do NOT pass to Claude |
 
@@ -98,7 +98,7 @@ conn = get_db(); register_loop(conn, LOOP_ID, 'topic', sprints_max=999); conn.cl
 
 ## CHANGELOG
 - `2026-03-03 v13` — Refactored to DML skill architecture: SKILL.md → 60 lines, all protocol/templates/security moved to REFERENCE.md. Added `.gitignore` (was missing after dir flatten). Sanitized PII (IP, SSH user, Discord channel, cluster URL, tickers, collaborator names). Model string fixed to `litellm/qwen3-coder`.
-- `2026-03-03 v12` — Local compute first, Henry's security system, time enforcement, setup checklist, loop start notification
+- `2026-03-03 v12` — Local compute first, collaborator security system, time enforcement, setup checklist, loop start notification
 - `2026-03-01 v11` — Relay engine, multi-agent relay runtime
 - `2026-03-01 v10` — Time-bound loops, never-stop-early enforcement
 - `2026-03-01 v9` — Dashboard, Framework1 SSH health, energy tracking

@@ -20,6 +20,12 @@ configs/*.json
 !configs/example.json
 !configs/iran-escalation-monitor.json
 
+# Status sources may contain internal hostnames/IPs
+status_sources.json
+
+# Scratch files
+--sprints
+
 # ============================================================
 # RUNTIME DATA — not for version control
 # ============================================================

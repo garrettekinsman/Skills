@@ -11,7 +11,7 @@ LITELLM_URL        = https://<your-litellm-host>
 LITELLM_API_KEY    = sk-...
 FRAMEWORK1_SSH_HOST = <tailscale-ip>
 FRAMEWORK1_SSH_KEY  = ~/.ssh/framework_key
-FRAMEWORK1_SSH_USER = gk
+FRAMEWORK1_SSH_USER = <your-ssh-user>
 LOOP_NOTIFICATION_CHANNEL = <discord-channel-id>
 ```
 
@@ -257,7 +257,7 @@ Output sections: Current State, Key Actors, Timeline, Scenarios, Risk Assessment
 | Loop finishes in 2 min | No sprint counter in task prompt | Add numbered sprints + MIN_SPRINTS to task |
 | `modelApplied: true` but wrong model | OpenClaw ignores unknown provider prefix | Verify litellm provider in gateway config |
 | LiteLLM 401/403 | Key expired or wrong | Check `LITELLM_API_KEY` env var |
-| loop_status SSH `Permission denied` | Wrong username | `FRAMEWORK1_SSH_USER=gk` must be set |
+| loop_status SSH `Permission denied` | Wrong username | `FRAMEWORK1_SSH_USER=<your-ssh-user>` must be set |
 | Nonce mismatch reading state | State file tampered or from different session | Halt — do not use findings |
 | model_output_sanitizer blocked output | Injection pattern detected in local model output | Discard entirely, do NOT pass to Claude |
 | QWQ pull killed mid-download | Ollama restart kills in-progress pulls | `nohup ollama pull qwq:32b > /tmp/pull.log 2>&1 &` |
