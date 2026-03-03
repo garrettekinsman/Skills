@@ -18,6 +18,7 @@ telegram_config.json
 configs/*.json
 !configs/template.json
 !configs/example.json
+!configs/iran-escalation-monitor.json
 
 # ============================================================
 # RUNTIME DATA — not for version control
@@ -33,6 +34,10 @@ osint_archive.*
 state/
 research_state.json
 
+# Loop findings (potentially sensitive research content)
+*-findings.md
+*-findings.json
+
 # Python cache
 __pycache__/
 *.pyc
@@ -45,11 +50,3 @@ __pycache__/
 # ============================================================
 *.log
 ops/audit.log
-
-# ============================================================
-# TRADING/DOMAIN-SPECIFIC — excluded from public skill
-# ============================================================
-geopolitical_trading_strategies.py
-simple_test_demo.py
-test_geopolitical_framework.py
-configs/iran-escalation-monitor.json
