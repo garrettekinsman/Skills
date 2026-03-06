@@ -1,0 +1,33 @@
+{
+  "files": {
+    "SKILL.md": {
+      "sha256": "014dc998dfbfd6831712b56c6947fa10fcd8c34f031a23b8601f9e0b2a840afb",
+      "size": 1457
+    },
+    "design.md": {
+      "sha256": "5a63954f6e8270925a13bf7b59a9c6fd945587cb2ed605e5e08f17c9fdf0a089",
+      "size": 11977
+    },
+    "gpu_scheduler.py": {
+      "sha256": "6fe516605d8c3eb110aee94d589d482c49b38dfc7a107a4c29d91ddebfe4f123",
+      "size": 13457
+    },
+    "integration.md": {
+      "sha256": "71b9eb893cca017c930886ec39fc77347fc6092d2a39f0f2b63db603032bbc45",
+      "size": 7534
+    }
+  },
+  "skill": {
+    "author": "hank@menehune",
+    "name": "GPU Scheduler",
+    "version": "0.1.0"
+  },
+  "timestamp": "2026-03-06T03:36:21.013376+00:00",
+  "version": "1.0.0",
+  "signature": "-----BEGIN SSH SIGNATURE-----\nU1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAg6MmPykxNbsDbEooEbugjp8io5Z\ncFUymw2nWskqwb2zgAAAAOc2tpbGwtbWFuaWZlc3QAAAAAAAAABnNoYTUxMgAAAFMAAAAL\nc3NoLWVkMjU1MTkAAABAara2MudIOLW/F8U2/9Y7B5k4dPzj2L3RbPYvZAYdgt0TaDPJF6\nwN9ngfRmBEkpLheRCxVRZNxk0KiKCplJ01AA==\n-----END SSH SIGNATURE-----\n",
+  "signer": {
+    "algorithm": "ssh-ed25519",
+    "identity": "hank@menehune",
+    "key_fingerprint": "SHA256:TERU1gu6rBafej2trGkhH+OkGEbGR+8iw1oeo3Isz5g"
+  }
+}
