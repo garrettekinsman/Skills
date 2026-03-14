@@ -1,58 +1,18 @@
-# ============================================================
-# SECRETS & CREDENTIALS — NEVER COMMIT
-# ============================================================
-
-# Telegram credentials (api_id, api_hash, phone, 2FA password)
+# Telegram credentials & sessions
 telegram_config.json
-
-# Telegram session files (active auth tokens — treat like passwords)
 *.session
-*.session-journal
+osint_session*
+telegram_auth_*
 
-# ============================================================
-# PERSONAL INFRASTRUCTURE — IPs, SSH paths
-# ============================================================
-
-# Per-user configs contain Tailscale IPs, SSH key paths, and API keys
-# Share configs/examples/ or configs/template.json instead
-configs/*.json
-!configs/template.json
-!configs/example.json
-!configs/iran-escalation-monitor.json
-
-# Status sources may contain internal hostnames/IPs
-status_sources.json
-
-# Scratch files
---sprints
-
-# ============================================================
-# RUNTIME DATA — not for version control
-# ============================================================
-
-# SQLite databases (OSINT archive, loop state)
-*.db
-*.db-shm
-*.db-wal
-osint_archive.*
-
-# Loop state directories and files
+# Personal state
 state/
-research_state.json
-
-# Loop findings (potentially sensitive research content)
-*-findings.md
-*-findings.json
+osint_archive.db
+*.db
 
 # Python cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.Python
-
-# ============================================================
-# LOGS & TEMP
-# ============================================================
-*.log
-ops/audit.log
+.pytest_cache/
+*.egg-info/
+dist/
+.venv/
