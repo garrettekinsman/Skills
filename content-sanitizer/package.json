@@ -1,0 +1,22 @@
+{
+  "name": "openclaw-content-sanitizer",
+  "version": "1.0.0",
+  "description": "Universal prompt-injection defense plugin for OpenClaw — sanitizes all tool results before they reach the session transcript",
+  "main": "index.ts",
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "security",
+    "prompt-injection",
+    "sanitization",
+    "content-safety"
+  ],
+  "license": "MIT",
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/henrysalkever/openclaw-content-sanitizer"
+  }
+}

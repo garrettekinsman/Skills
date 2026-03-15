@@ -1,0 +1,10 @@
+{
+  "id": "content-sanitizer",
+  "name": "Content Sanitizer",
+  "version": "1.0.0",
+  "description": "Universal prompt-injection defense for OpenClaw agents. Hooks tool_result_persist to sanitize all tool results before they reach the session transcript.",
+  "configSchema": {},
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  }
+}
