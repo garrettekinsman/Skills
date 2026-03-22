@@ -257,6 +257,44 @@ All writes use SQLite WAL mode for concurrent read safety.
 
 ---
 
+## CLI Spawn Mechanism
+
+> ⚠️ **Correction (2026-03-04)**: The original `orchestrator.py` used `openclaw sessions spawn --task-file` — this command **does not exist**. It was hallucinated. The actual working CLI is:
+
+```bash
+openclaw agent --session-id "relay-jobid-s1" --message "worker prompt here" --json --timeout 300
+```
+
+Key differences from the original incorrect docs:
+- **Synchronous** — blocks until the worker turn completes, no polling needed
+- **`--session-id`** — targets a specific session (fresh or existing)
+- **`--json`** — returns structured output:
+  ```json
+  {
+    "status": "ok",
+    "result": {
+      "payloads": [...],
+      "meta": {
+        "durationMs": 45000,
+        "agentMeta": {"usage": {"inputTokens": 1200, "outputTokens": 800}}
+      }
+    }
+  }
+  ```
+- No polling loop required — result arrives when the agent turn finishes
+
+**Use `orchestrator_cli.py` instead of `orchestrator.py`** — it subclasses the original orchestrator and replaces `_spawn_worker` + `_poll_until_done` with a single synchronous `_run_worker_sync()` using the correct command. Tested: 2-sprint loop, 26 findings, $0.27 total. Original `orchestrator.py` is kept for reference but its spawn mechanism is broken.
+
+```bash
+# Correct — use this
+python3 orchestrator_cli.py --config my_job.json
+
+# Broken — don't use this
+python3 orchestrator.py --config my_job.json  # spawn will fail
+```
+
+Credit: Menehune (Henry's agent) found the correct command.
+
 ## Environment Variables
 
 | Variable | Default | Purpose |

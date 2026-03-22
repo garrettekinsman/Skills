@@ -1,12 +1,23 @@
 """
 orchestrator.py — Thin loop relay orchestrator.
-Spawns workers via `openclaw sessions spawn` CLI, polls for completion,
+Spawns workers via CLI, polls for completion,
 manages checkpoints, generates batons, handles crash recovery.
 
 Python 3.9 compatible. No external deps.
 
+⚠️ WARNING (2026-03-04): The _spawn_worker() method in this file uses
+`openclaw sessions spawn --task-file` which DOES NOT EXIST as a CLI command.
+This is a hallucinated API. Use orchestrator_cli.py instead, which subclasses
+this orchestrator and replaces spawn/poll with the correct synchronous mechanism:
+
+    openclaw agent --session-id <id> --message <prompt> --json --timeout 300
+
+orchestrator_cli.py is the production-ready version. This file is kept for
+reference and as the base class.
+
 Usage:
-    python3 orchestrator.py --config job_config.json
+    python3 orchestrator_cli.py --config job_config.json  # USE THIS
+    python3 orchestrator.py --config job_config.json      # BROKEN SPAWN
     python3 orchestrator.py --resume JOB_ID
 """
 
